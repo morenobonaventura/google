@@ -38,6 +38,7 @@ import time
 
 from cookielib import LWPCookieJar
 from urllib import quote_plus
+import urllib2
 from urllib2 import Request, urlopen
 from urlparse import urlparse, parse_qs
 
@@ -109,15 +110,15 @@ def get_page(url, user_agent=None, proxies = {}):
     @raise urllib2.URLError: An exception is raised on error.
     @raise urllib2.HTTPError: An exception is raised on error.
     """
-    
+
     #setup proxy
     opener = urllib2.build_opener(
                      urllib2.HTTPHandler(),
                      urllib2.HTTPSHandler(),
                      urllib2.ProxyHandler( proxies ))
     urllib2.install_opener(opener)
-    
-    
+
+
     if user_agent is None:
         user_agent = USER_AGENT
     request = Request(url)
@@ -203,7 +204,7 @@ def lucky(query, tld='com', lang='en', tbs='0', safe='off', only_standard=False,
 
 # Returns a generator that yields URLs.
 def search(query, tld='com', lang='en', tbs='0', safe='off', num=10, start=0,
-           stop=None, pause=2.0, only_standard=False, extra_params={}, tpe='', 
+           stop=None, pause=2.0, only_standard=False, extra_params={}, tpe='',
            user_agent=None, proxies={}):
     """
     Search the given query string using Google.
